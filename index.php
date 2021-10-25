@@ -29,7 +29,7 @@ $admin = $_SESSION["admin"];
 	<!-- HEADER -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
-			<a class="navbar-brand" href="index.php">PSB ONLINE</a>
+			<a class="navbar-brand" href="index.php">ONLINE SISTEM</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -77,11 +77,8 @@ if (isset($_GET['fungsi'])){
 			read($koneksi);
 			break;
 		case "getDataByUser":
-			$user = $_SESSION['username'];
-			if ($admin == 1) {
-				$user = (isset($_GET['user'])) ? $_GET['user'] : '';
-			}
-			getDataByUser($koneksi, $user);
+			$pengguna = (isset($_GET['pengguna'])) ? $_GET['pengguna'] : $_SESSION['username'];
+			getDataByUser($koneksi, $pengguna);
 			break;
 		case "update":
 			if ($admin == 0) {
@@ -140,7 +137,7 @@ function create($koneksi){
 		if(strlen($username) > 5) {
 			$pesan = "Username tidak boleh lebih dari 5 karakter!";
 		} else {
-			$sql = mysqli_query($koneksi, "select * from user where username='$username'");
+			$sql = mysqli_query($koneksi, "select * from pengguna where username='$username'");
 			$cek = mysqli_num_rows($sql);
 			if($cek > 0){
 				$pesan = "Username telah digunakan!";
@@ -157,7 +154,7 @@ function create($koneksi){
 
 						$simpan = mysqli_query($koneksi, $sql);
 						if($simpan && isset($_GET['fungsi'])){
-							$sql2 = "INSERT INTO user VALUES ('".$username."','".md5($password)."', 0)";
+							$sql2 = "INSERT INTO pengguna VALUES ('".$username."','".md5($password)."', 0)";
 							$simpan2 = mysqli_query($koneksi, $sql2);
 							if($simpan2){
 								if($_GET['fungsi'] == 'create'){
@@ -313,8 +310,8 @@ echo'
 					<td>'.$data['status'].'</td>
 					<td>
 						<a href="index.php?fungsi=update&id_siswa='.$data['id_siswa'].'" class="badge badge-warning">Ubah</a>
-						<a href="index.php?fungsi=delete&id_siswa='.$data['id_siswa'].'" class="badge badge-danger" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Hapus</a>
-						<a href="index.php?fungsi=getDataByUser&user='.$data['username'].'" class="badge badge-success">Lihat</a>
+						<a href="index.php?fungsi=delete&id_siswa='.$data['id_siswa'].'&username='.$data['username'].'" class="badge badge-danger" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Hapus</a>
+						<a href="index.php?fungsi=getDataByUser&pengguna='.$data['username'].'" class="badge badge-success">Lihat</a>
 					</td>
 				</tr>';
 				$no++;
@@ -451,9 +448,10 @@ function update($koneksi){
 ?>
 
 <?php
+
 // Fungsi get data siswa by ID
-function getDataByUser($koneksi, $user) {
-	$username = $user;
+function getDataByUser($koneksi, $pengguna) {
+	$username = $pengguna;
 
 	// ambil data mahasiswa untuk ditampilkan ke dalam form update
 	$sql ="SELECT * FROM siswa WHERE username='$username'";
@@ -500,6 +498,7 @@ function getDataByUser($koneksi, $user) {
 ?>
 
 <?php
+
 //---Fungsi update data mahasiswa berhasil tambah data
 function update_success(){
 	echo'
@@ -512,13 +511,16 @@ function update_success(){
 
 // --- Fungsi Delete
 function delete ($koneksi){
-	if(isset($_GET['id_siswa']) && isset($_GET['fungsi'])){
+	if(isset($_GET['id_siswa']) && isset($_GET['username']) && isset($_GET['fungsi'])){
 		$id_siswa = $_GET['id_siswa'];
-		$sql_hapus = "DELETE FROM siswa WHERE id_siswa=" . $id_siswa;
-		$hapus = mysqli_query($koneksi, $sql_hapus);
+		$sql_hapus = "DELETE FROM siswa WHERE id_siswa=".$id_siswa;
+		$hapus =  mysqli_query($koneksi, $sql_hapus);
 
 		if($hapus) {
-			if($_GET['fungsi'] == 'delete'){
+			$username = $_GET['username'];
+			$sql = "DELETE FROM pengguna WHERE username = '".$username."'";
+			$hapus_user = mysqli_query($koneksi, $sql);
+			if($_GET['fungsi'] == 'delete' && $hapus_user){
 				header('location: index.php?fungsi=delete_success');
 			}
 		}

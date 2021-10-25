@@ -14,7 +14,7 @@ if (isset($_POST["login"])){
 	$password = Md5($_POST["password"]);
 
 	//menyeleksi data admin dengan username dan password yang sesuai
-	$sql = mysqli_query($koneksi, "select * from user where username='$username' and password='$password'");
+	$sql = mysqli_query($koneksi, "select * from pengguna where username='$username' and password='$password'");
 	$cek = mysqli_num_rows($sql);
 	if($cek > 0){
 		$data = mysqli_fetch_assoc($sql);

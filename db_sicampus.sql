@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2021 at 10:37 AM
+-- Generation Time: Oct 25, 2021 at 06:05 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_sicampus`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengguna`
+--
+
+CREATE TABLE `pengguna` (
+  `username` varchar(5) NOT NULL,
+  `password` varchar(300) NOT NULL,
+  `admin` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengguna`
+--
+
+INSERT INTO `pengguna` (`username`, `password`, `admin`) VALUES
+('admin', '827ccb0eea8a706c4c34a16891f84e7b', 1),
+('qwe', '202cb962ac59075b964b07152d234b70', 0);
 
 -- --------------------------------------------------------
 
@@ -43,35 +63,17 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nama_siswa`, `alamat`, `jenis_kelamin`, `agama`, `sekolah_asal`, `username`, `status`) VALUES
-(10, 'anaw', 'dddd', 'P', 'Hindu', 'Mataram', 'anaw2', 'Cadangan'),
-(11, 'CANTIK', 'CDSWE', 'P', 'Hindu', 'dsadsad', 'CHEN9', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `username` varchar(5) NOT NULL,
-  `password` varchar(300) NOT NULL,
-  `admin` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`username`, `password`, `admin`) VALUES
-('admin', '827ccb0eea8a706c4c34a16891f84e7b', 1),
-('wid22', '202cb962ac59075b964b07152d234b70', 0),
-('ana11', '202cb962ac59075b964b07152d234b70', 0),
-('anaw2', '202cb962ac59075b964b07152d234b70', 0),
-('CHEN9', '202cb962ac59075b964b07152d234b70', 0);
+(20, 'ererrerew', 'sxswd', 'L', 'Kristen Protestan', 'qerwt', 'qwe', 'Cadangan');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `pengguna`
+--
+ALTER TABLE `pengguna`
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `siswa`
@@ -87,7 +89,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
