@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2021 at 06:05 AM
+-- Generation Time: Oct 26, 2021 at 07:13 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -39,7 +39,7 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`username`, `password`, `admin`) VALUES
 ('admin', '827ccb0eea8a706c4c34a16891f84e7b', 1),
-('qwe', '202cb962ac59075b964b07152d234b70', 0);
+('ana1', '202cb962ac59075b964b07152d234b70', 0);
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nama_siswa`, `alamat`, `jenis_kelamin`, `agama`, `sekolah_asal`, `username`, `status`) VALUES
-(20, 'ererrerew', 'sxswd', 'L', 'Kristen Protestan', 'qerwt', 'qwe', 'Cadangan');
+(27, 'ana', 'denpasar', 'P', 'Islam', 'denpasar', 'ana1', 'Diterima');
 
 --
 -- Indexes for dumped tables
@@ -89,7 +89,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

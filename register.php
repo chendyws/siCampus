@@ -23,7 +23,7 @@ if(isset($_POST['register'])){
 	if(strlen($username) > 5) {
 		$pesan = "Username tidak boleh lebih dari 5 karakter!";
 	} else {
-		$sql = mysqli_query($koneksi, "select * from user where username='$username'");
+		$sql = mysqli_query($koneksi, "select * from pengguna where username='$username'");
 		$cek = mysqli_num_rows($sql);
 		if($cek > 0){
 			$pesan = "Username telah digunakan!";
@@ -40,7 +40,7 @@ if(isset($_POST['register'])){
 
 					$simpan = mysqli_query($koneksi, $sql);
 					if($simpan){
-						$sql2 = "INSERT INTO user VALUES ('".$username."','".md5($password)."', 0)";
+						$sql2 = "INSERT INTO pengguna VALUES ('".$username."','".md5($password)."', 0)";
 						$simpan2 = mysqli_query($koneksi, $sql2);
 						if($simpan2){
 							header('location: login.php');
